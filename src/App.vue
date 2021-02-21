@@ -1,28 +1,53 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <body>
+    <headerList></headerList>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-5 m-auto">
+          <h1 class="text-center">TO DO or not TO DO ?</h1>
+          <h2 class="h4 mt-4 text-center">Things I should do...One day.</h2>
+          <div class="form-group mt-5">
+            <label for="list" class="h5">Add to my list :</label>
+            <input v-on:keyup.enter="addElement" type="text" class="form-control" id="list" placeholder="Type something to do">
+            <!-- OR : input v-model="newElement.element" (in data) And then button v-on:click="push in array"-->
+          </div>
+          <list v-bind:listElement="listElement"></list>
+        </div>
+      </div>
+    </div>
+  </body>  
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HeaderList from './components/HeaderList.vue'
+import List from './components/List.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    'list' : List,
+    'headerList' : HeaderList,
+  },
+  data() {
+    return {
+      element : "",
+      listElement : ["Task added. Try to delete it -->"],
+    }
+  },
+  methods: {
+    addElement : function(e) {
+      this.element = e.target.value;
+      this.listElement.push(this.element);
+      e.target.value = "";
+    }
+
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  background-color: #9cdcc4;
+  height: 100vh;
 }
 </style>
